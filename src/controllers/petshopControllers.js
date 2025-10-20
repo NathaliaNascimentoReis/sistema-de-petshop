@@ -24,3 +24,29 @@ export const listarTodosPets = async (req, res) => {
     });
   }
 };
+
+export const listarPetPorId = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const pet = await petshopModel.findPetById(id);
+
+    if (!pet) {
+      return res.status(404).json({
+        erro: "Pet não encontrado",
+        message: "verifiue se o id do pet existe",
+        id: id,
+      });
+    }
+
+    return res.status(200).json({
+      message: "Pet encontrado com sucesso",
+      pet,
+    });
+    
+  } catch (error) {
+    res.status(500).json({
+      erro: "Erro ao buscar pet por id",
+      detalhes: error.message,
+    });
+  }
+};

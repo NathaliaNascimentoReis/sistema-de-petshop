@@ -6,3 +6,9 @@ export const findAllPets = async () => {
     orderBy: { nome: "asc" },
   });
 };
+
+export const findPetById = async (id) => {
+  return await prisma.pet.findUnique({
+    where: { id: Number(id)}
+  })
+}
